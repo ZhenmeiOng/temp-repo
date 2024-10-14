@@ -1,0 +1,98 @@
+/* UserDetails.css */
+
+/* General Styles */
+.body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #EADDFF 100%);
+  }
+  
+  .container {
+    background: linear-gradient(180deg, #FFFFFF 0%, #EADDFF 100%);
+    height: 1024px;
+    position: relative;
+    width: 1440px;
+  }
+  
+  /* Title Styles */
+  .title {
+    background: linear-gradient(180deg, #150E24 0%, #4B3484 51.5%, #6C5392 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 48px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    line-height: 57.6px;
+    position: absolute;
+    left: 200px;
+    top: 90px;
+  }
+  
+  /* Welcome Message Styles */
+  .welcome {
+    background: linear-gradient(180deg, #150E24 0%, #4B3484 51.5%, #6C5392 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 46px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    line-height: 57.6px;
+    position: absolute;
+    left: 200px;
+    top: 200px;
+  }
+  
+  /* User Info Styles */
+  .user-info {
+    color: #1D1B20;
+    font-size: 32px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    line-height: 40px;
+    word-wrap: break-word;
+  }
+  
+  .date-info {
+    color: #49454F;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    word-wrap: break-word;
+  }
+  
+  .username-email {
+    color: #1D1B20;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    word-wrap: break-word;
+  }
+  
+  /* Button Styles */
+  .logout-button,
+  .switch-account {
+    color: #65558F;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    word-wrap: break-word;
+  }
+  
+  .get-started {
+    color: black;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    word-wrap: break-word;
+  }

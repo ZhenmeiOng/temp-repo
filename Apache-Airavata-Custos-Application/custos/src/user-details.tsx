@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Divide, LogOut, UserIcon } from 'lucide-react';
 // @ts-ignore
 import { ReactComponent as Logo } from './user-logo.svg';
+import './user-details.css';
 
 interface User {
   email: string;
@@ -9,13 +10,22 @@ interface User {
 }
 
 interface UserDetailProps {
-  user: User;
+  users: User[]; // Add a prop to accept multiple users
   onLogout: () => void;
+  onSwitchUser: (user: User) => void; // Function to switch user
 }
 
-export default function UserDetails({user, onLogout}: UserDetailProps) {
+export default function UserDetails({ users, onLogout, onSwitchUser }: UserDetailProps) {
+  const [selectedUser, setSelectedUser] = useState<User>(users[0]); // Set the initial user to the first in the list
 
-  ///////// add css styles here //////////
+  const handleSwitchUser = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const user = users.find(u => u.email === event.target.value);
+    if (user) {
+      setSelectedUser(user);
+      onSwitchUser(user); // Call the parent function to switch user
+    }
+  };
+
   const styles = {
     body: {
       minHeight: '100vh',
@@ -27,7 +37,6 @@ export default function UserDetails({user, onLogout}: UserDetailProps) {
     },
     div: {
       background: 'linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(234, 221, 255) 100%)',
-      //background-color: 'rgba(255, 255, 255, 1)',
       height: '1024px',
       position: 'relative' as const,
       width: '1440px',
@@ -37,9 +46,7 @@ export default function UserDetails({user, onLogout}: UserDetailProps) {
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
       color: 'transparent',
-      //fontFamily: 'var(--title-page-font-family)',
       fontSize: '50px',
-      //fontStyle: 'var(--title-page-font-style)',
       fontWeight: '900',
       left: '200px',
       letterSpacing: 'var(--title-page-letter-spacing)',
@@ -52,9 +59,7 @@ export default function UserDetails({user, onLogout}: UserDetailProps) {
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
       color: 'transparent',
-      //fontFamily: 'var(--title-page-font-family)',
       fontSize: '46px',
-      //fontStyle: 'var(--title-page-font-style)',
       fontWeight: '800',
       left: '200px',
       letterSpacing: 'var(--title-page-letter-spacing)',
@@ -62,7 +67,7 @@ export default function UserDetails({user, onLogout}: UserDetailProps) {
       position: 'absolute' as const,
       top: '200px',
     },
-    logoutButton: {
+    button: {
       display: 'inline-flex',
       alignItems: 'center',
       padding: '8px 16px',
@@ -74,7 +79,8 @@ export default function UserDetails({user, onLogout}: UserDetailProps) {
       color: '#333',
       cursor: 'pointer',
       transition: 'background-color 0.3s ease',
-      boxShadow: '0px 4px 4px #00000040'
+      boxShadow: '0px 4px 4px #00000040',
+      marginRight: '8px', // Space between buttons
     },
     stateLayer: {
       display: 'flex',
@@ -98,36 +104,46 @@ export default function UserDetails({user, onLogout}: UserDetailProps) {
       fontWeight: 700,
       cursor: 'pointer',
     },
-    //----------- part 1: modify here to add more css styles -------------------
-
-  }
-  ////////////////////////////////////////
+    select: {
+      padding: '8px 16px',
+      border: '1px solid #ccc',
+      borderRadius: '50px',
+      fontSize: '14px',
+      marginRight: '8px',
+      cursor: 'pointer',
+    },
+  };
 
   return (
     <div style={styles.body}>
       <div style={styles.div}>
         <h2 style={styles.title}>MyApp</h2>
-        <span style={styles.welcome}>Welcome, {user.name}</span>
+        <span style={styles.welcome}>Welcome, {selectedUser.name}</span>
 
-        {/*----------- part 2: modify the code starting from here -----------*/}
         <div className="text-column">
           <div className="headline-supporting">
             <div className="headline">User Info</div>
             <div className="published-date">Date of Account Creation</div>
             <div className="supporting-text">
-              Username: Anonymous
+              Username: {selectedUser.name}
               <br />
-              Email: anonymous@gatech.edu
+              Email: {selectedUser.email}
             </div>
           </div>
         </div>
         <Logo className="my-logo" />
         <div className="extended-FAB">
           <div className="state-layer">
-            {/*------------ do not modify the button ------------------*/}
-            <button 
-              onClick={onLogout} 
-              style={styles.logoutButton}
+            <select value={selectedUser.email} onChange={handleSwitchUser} style={styles.select}>
+              {users.map(user => (
+                <option key={user.email} value={user.email}>
+                  {user.name}
+                </option>
+              ))}
+            </select>
+            <button
+              onClick={onLogout}
+              style={styles.button}
               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(109, 83, 172, 0.1)'}
               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
               onFocus={(e) => e.currentTarget.style.boxShadow = '0 0 0 2px rgba(109, 83, 172, 0.5)'}
@@ -138,7 +154,6 @@ export default function UserDetails({user, onLogout}: UserDetailProps) {
                 <span style={styles.labelText}>Logout</span>
               </div>
             </button>
-            {/*--------------------------------------------------------*/}
           </div>
         </div>
         <p className="text-wrapper">Get started by adding some content.</p>
@@ -148,5 +163,4 @@ export default function UserDetails({user, onLogout}: UserDetailProps) {
       </div>
     </div>
   );
-}; 
-    
+}
