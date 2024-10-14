@@ -17,29 +17,27 @@
     width: 1440px;
   }
   
-  /* Title Styles */
   .title {
-    background: linear-gradient(180deg, #150E24 0%, #4B3484 51.5%, #6C5392 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 48px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    line-height: 57.6px;
+    background: linear-gradient(180deg, rgb(20.61, 14.35, 36) 0%, rgb(75.2, 52.36, 131.37) 51.5%, rgb(108.91, 83.19, 172.13) 100%);
+    -webkit-background-clip: text;  /* For WebKit-based browsers */
+    background-clip: text;           /* Standard property */
+    -webkit-text-fill-color: transparent; /* For WebKit-based browsers */
+    color: transparent;
+    font-size: 50px;
+    font-weight: 900;
     position: absolute;
     left: 200px;
     top: 90px;
   }
   
-  /* Welcome Message Styles */
   .welcome {
-    background: linear-gradient(180deg, #150E24 0%, #4B3484 51.5%, #6C5392 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background: linear-gradient(180deg, rgb(20.61, 14.35, 36) 0%, rgb(75.2, 52.36, 131.37) 51.5%, rgb(108.91, 83.19, 172.13) 100%);
+    -webkit-background-clip: text;  /* For WebKit-based browsers */
+    background-clip: text;           /* Standard property */
+    -webkit-text-fill-color: transparent; /* For WebKit-based browsers */
+    color: transparent;
     font-size: 46px;
-    font-family: 'Inter', sans-serif;
     font-weight: 800;
-    line-height: 57.6px;
     position: absolute;
     left: 200px;
     top: 200px;

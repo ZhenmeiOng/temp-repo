@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import LoginPage from './LoginPage.tsx';
-import LandingPage from './Landing.tsx';
-import CustosLogin from './custos-login.tsx';
-import UserDetails from './user-details.tsx';
-
-// Define the User interface
-interface User {
-  email: string;
-  name: string;
-}
+import LoginPage from './LoginPage';
+import LandingPage from './Landing';
+import CustosLogin from './custos-login';
+import UserDetails from './user-details';
 
 // Sample list of users
-const users: User[] = [
+const users = [
   { email: 'user1@gatech.edu', name: 'User One' },
   { email: 'user2@gatech.edu', name: 'User Two' },
   { email: 'user3@gatech.edu', name: 'User Three' },
 ];
 
 export default function App() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -27,7 +21,7 @@ export default function App() {
     }
   }, []);
 
-  const handleLogin = (loggedInUser: User) => {
+  const handleLogin = (loggedInUser) => {
     setUser(loggedInUser);
     localStorage.setItem('user', JSON.stringify(loggedInUser)); // Store user in localStorage
   };
@@ -37,7 +31,7 @@ export default function App() {
     setUser(null);
   };
 
-  const handleSwitchUser = (newUser: User) => {
+  const handleSwitchUser = (newUser) => {
     setUser(newUser);
     localStorage.setItem('user', JSON.stringify(newUser)); // Update localStorage with new user
   };
