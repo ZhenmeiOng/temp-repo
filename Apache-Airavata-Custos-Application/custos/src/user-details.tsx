@@ -1,165 +1,162 @@
 import React, { useState } from 'react';
-import { Divide, LogOut, UserIcon } from 'lucide-react';
-// @ts-ignore
-import { ReactComponent as Logo } from './user-logo.svg';
+import { LogOut } from 'lucide-react'; // Imported only LogOut icon
 import './user-details.css';
+import { CSSProperties } from 'react'; // Import CSSProperties from React
 
+// Define User interface
 interface User {
   email: string;
   name: string;
 }
 
+// Define the props for the component
 interface UserDetailProps {
-  users: User[]; // Add a prop to accept multiple users
-  onLogout: () => void;
+  users: User[]; // Array of users
+  onLogout: () => void; // Logout function
   onSwitchUser: (user: User) => void; // Function to switch user
 }
 
 export default function UserDetails({ users, onLogout, onSwitchUser }: UserDetailProps) {
-  const [selectedUser, setSelectedUser] = useState<User>(users[0]); // Set the initial user to the first in the list
+  const [selectedUser, setSelectedUser] = useState<User>(users[0]); // Initial user
 
+  // Handle switch user
   const handleSwitchUser = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const user = users.find(u => u.email === event.target.value);
     if (user) {
       setSelectedUser(user);
-      onSwitchUser(user); // Call the parent function to switch user
+      onSwitchUser(user); // Notify parent component
     }
   };
 
-  const styles = {
+  // Define styles
+  const styles: { [key: string]: CSSProperties } = {
     body: {
       minHeight: '100vh',
       display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      background: 'linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(234, 221, 255) 100%)',
+      padding: '20px',
+    },
+    container: {
+      display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '20px',
-      background: 'linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(234, 221, 255) 100%)',
+      flexDirection: 'row',
+      gap: '40px',
+      padding: '40px',
+      background: '#fff',
+      borderRadius: '16px',
+      boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.1)',
+      maxWidth: '800px',
+      width: '100%',
     },
-    div: {
-      background: 'linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(234, 221, 255) 100%)',
-      height: '1024px',
-      position: 'relative' as const,
-      width: '1440px',
+    textSection: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
+    iconSection: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    icon: {
+      width: '120px',
+      height: '120px',
+      backgroundColor: '#6D53AC',
+      borderRadius: '50%',
     },
     title: {
-      background: 'linear-gradient(180deg, rgb(20.61, 14.35, 36) 0%, rgb(75.2, 52.36, 131.37) 51.5%, rgb(108.91, 83.19, 172.13) 100%)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      color: 'transparent',
       fontSize: '50px',
       fontWeight: '900',
-      left: '200px',
-      letterSpacing: 'var(--title-page-letter-spacing)',
-      lineHeight: 'var(--title-page-line-height)',
-      position: 'absolute' as const,
-      top: '90px',
+      color: '#6D53AC',
+      marginBottom: '10px',
     },
     welcome: {
-      background: 'linear-gradient(180deg, rgb(20.61, 14.35, 36) 0%, rgb(75.2, 52.36, 131.37) 51.5%, rgb(108.91, 83.19, 172.13) 100%)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      color: 'transparent',
-      fontSize: '46px',
+      fontSize: '36px',
       fontWeight: '800',
-      left: '200px',
-      letterSpacing: 'var(--title-page-letter-spacing)',
-      lineHeight: 'var(--title-page-line-height)',
-      position: 'absolute' as const,
-      top: '200px',
+      marginBottom: '20px',
+      color: '#6D53AC',
+    },
+    userInfo: {
+      fontSize: '18px',
+      marginBottom: '20px',
+      color: '#333',
     },
     button: {
       display: 'inline-flex',
       alignItems: 'center',
-      padding: '8px 16px',
+      padding: '10px 20px',
       border: 'none',
-      backgroundColor: 'ece6f0',
+      backgroundColor: '#6D53AC',
       borderRadius: '50px',
       fontSize: '14px',
-      fontWeight: 500,
-      color: '#333',
+      fontWeight: '500',
+      color: '#fff',
       cursor: 'pointer',
-      transition: 'background-color 0.3s ease',
-      boxShadow: '0px 4px 4px #00000040',
-      marginRight: '8px', // Space between buttons
+      marginBottom: '20px',
     },
-    stateLayer: {
-      display: 'flex',
-      alignItems: 'center',
+    logoutIcon: {
+      marginRight: '10px',
     },
-    logOut: {
-      marginRight: '8px',
-    },
-    labelText: {
-      fontFamily: 'sans-serif',
-      lineHeight: 1,
-    },
-    addContent: {
-      padding: '10px',
-      backgroundColor: '#e8def8',
-      color: 'rgb(75.2, 52.36, 131.37)',
-      border: '1px solid',
-      borderColor: '#79747e',
-      fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
-      fontSize: '12px',
-      fontWeight: 700,
+    addContentButton: {
+      padding: '10px 20px',
+      backgroundColor: '#6D53AC',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '30px',
       cursor: 'pointer',
+      fontSize: '16px',
+      fontWeight: '600',
+      marginBottom: '20px',
     },
-    select: {
-      padding: '8px 16px',
-      border: '1px solid #ccc',
-      borderRadius: '50px',
-      fontSize: '14px',
-      marginRight: '8px',
+    switchUserButton: {
+      padding: '10px 20px',
+      backgroundColor: '#999',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '30px',
       cursor: 'pointer',
+      fontSize: '16px',
+      fontWeight: '600',
     },
   };
 
   return (
     <div style={styles.body}>
-      <div style={styles.div}>
-        <h2 style={styles.title}>MyApp</h2>
-        <span style={styles.welcome}>Welcome, {selectedUser.name}</span>
-
-        <div className="text-column">
-          <div className="headline-supporting">
-            <div className="headline">User Info</div>
-            <div className="published-date">Date of Account Creation</div>
-            <div className="supporting-text">
-              Username: {selectedUser.name}
-              <br />
-              Email: {selectedUser.email}
-            </div>
+      <div style={styles.container}>
+        <div style={styles.iconSection}>
+          <div style={styles.icon}>
+            {/* Add the user icon or image here */}
           </div>
         </div>
-        <Logo className="my-logo" />
-        <div className="extended-FAB">
-          <div className="state-layer">
-            <select value={selectedUser.email} onChange={handleSwitchUser} style={styles.select}>
+        <div style={styles.textSection}>
+          <h2 style={styles.title}>MyApp</h2>
+          <span style={styles.welcome}>Welcome, {selectedUser.name}!</span>
+          <div style={styles.userInfo}>
+            <p>Date of Account Creation</p>
+            <p>Username: {selectedUser.name}</p>
+            <p>Email: {selectedUser.email}</p>
+          </div>
+          <button onClick={onLogout} style={styles.button}>
+            <LogOut style={styles.logoutIcon} color="#fff" size={24} strokeWidth={2.5} />
+            Logout
+          </button>
+          <p>Get started by adding some content.</p>
+          <button type="button" style={styles.addContentButton}>Add Content</button>
+          {/* Switch User Dropdown */}
+          <div>
+            <label htmlFor="switchUser" style={{ marginRight: '10px' }}>Switch User:</label>
+            <select id="switchUser" onChange={handleSwitchUser}>
               {users.map(user => (
                 <option key={user.email} value={user.email}>
                   {user.name}
                 </option>
               ))}
             </select>
-            <button
-              onClick={onLogout}
-              style={styles.button}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(109, 83, 172, 0.1)'}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              onFocus={(e) => e.currentTarget.style.boxShadow = '0 0 0 2px rgba(109, 83, 172, 0.5)'}
-              onBlur={(e) => e.currentTarget.style.boxShadow = 'none'}
-            >
-              <div style={styles.stateLayer}>
-                <LogOut style={styles.logOut} color="#6D53AC" size={24} strokeWidth={2.5} />
-                <span style={styles.labelText}>Logout</span>
-              </div>
-            </button>
           </div>
         </div>
-        <p className="text-wrapper">Get started by adding some content.</p>
-        <button type="button" style={styles.addContent}>
-          Add Content
-        </button>
       </div>
     </div>
   );
